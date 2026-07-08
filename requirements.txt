@@ -1,0 +1,26 @@
+# pathlib is part of the Python standard library and does not need installation.
+
+opencv-python
+numpy
+pandas
+matplotlib
+Pillow
+scikit-learn
+tensorflow
+keras
+tqdm
+seaborn
+albumentations
+imagehash
+streamlit
+gradio
+scipy
+# pathlib is built in for modern Python; keep marker for completeness.
+pathlib; python_version < "3.4"
+jupyter
+notebook
+ipykernel
+psutil
+py-cpuinfo
+black
+ruff
