@@ -1,78 +1,106 @@
 # 🏛️ Brahmi Script Recognition & Devanagari Transliteration
 
-A Deep Learning based Computer Vision system for recognizing ancient Brahmi script characters and transliterating them into modern Devanagari using TensorFlow, MobileNetV2, and Streamlit.
+> **Deep Learning-based Computer Vision System for Ancient Brahmi Script Recognition and Devanagari Transliteration using MobileNetV2 Transfer Learning.**
+
+![Architecture](assets/architecture.png)
 
 ---
 
 ## 📖 Overview
 
-Brahmi is one of the oldest writing systems of the Indian subcontinent and the ancestor of many modern Indian scripts. Reading Brahmi inscriptions requires specialized knowledge, making digitization and preservation difficult.
+Brahmi is one of the oldest writing systems of the Indian subcontinent and is considered the ancestor of many modern Indian scripts. Recognizing and transliterating Brahmi inscriptions manually requires expert knowledge and is often time-consuming.
 
-This project aims to automate the recognition of Brahmi script characters and transliterate them into their corresponding Devanagari characters using Deep Learning.
-
----
-
-## 🎯 Objectives
-
-- Recognize Brahmi characters from images.
-- Convert recognized characters into Devanagari.
-- Build a reusable OCR pipeline.
-- Provide a simple Streamlit interface for users.
+This project presents an end-to-end Deep Learning pipeline capable of recognizing Brahmi script characters from images and transliterating them into their corresponding Devanagari characters. The system is powered by **MobileNetV2 Transfer Learning**, a custom-built dataset, image preprocessing techniques, and a **Streamlit web application** for real-time inference.
 
 ---
 
 ## ✨ Features
 
-- 416 Brahmi character classes
-- Custom dataset preprocessing
-- Dataset balancing and augmentation
-- MobileNetV2 Transfer Learning
-- Automatic image preprocessing
-- Character prediction with confidence score
-- Streamlit web application
-- JSON-based character mapping
+- 📜 Recognizes ancient Brahmi characters
+- 🔤 Converts Brahmi characters into Devanagari
+- 🧠 MobileNetV2 Transfer Learning
+- 🖼 Automatic image preprocessing
+- 📈 Confidence score prediction
+- ⚖ Balanced dataset generation
+- 🚀 Streamlit-based web application
+- 💾 JSON-based character mapping
+- 📊 Training visualization and evaluation
 
 ---
 
-## 📂 Dataset
+# 🏗️ System Architecture
+
+![Architecture](assets/architecture.png)
+
+---
+
+# 📂 Dataset
+
+The dataset was prepared using a custom preprocessing and augmentation pipeline.
 
 | Property | Value |
 |----------|-------|
-| Classes | 416 |
-| Images | 6240 |
-| Images per class | 15 |
-| Image Size | 224 × 224 |
+| Total Classes | **416** |
+| Total Images | **6240** |
+| Images per Class | **15** |
+| Image Size | **224 × 224** |
 
-### Dataset Preparation
+### Dataset Preparation Pipeline
 
-- Dataset Cleaning
-- Class Balancing
-- Image Augmentation
-- Image Preprocessing
-- Normalization
+```
+Original Dataset
+        │
+        ▼
+Dataset Cleaning
+        │
+        ▼
+Dataset Balancing
+        │
+        ▼
+Image Augmentation
+        │
+        ▼
+Image Preprocessing
+        │
+        ▼
+Processed Dataset
+```
 
 ---
 
-## 🧠 Model
+# 🧠 Model Architecture
 
-Transfer Learning using **MobileNetV2**
-
-Architecture:
+The recognition model uses **Transfer Learning** with **MobileNetV2**.
 
 ```
 Input Image
       │
       ▼
-Preprocessing
+Resize (224×224)
+      │
+      ▼
+Normalization
       │
       ▼
 MobileNetV2 Feature Extractor
       │
       ▼
-Dense Layers
+Global Average Pooling
       │
       ▼
-416 Character Classes
+Dense Layer (ReLU)
+      │
+      ▼
+Dropout
+      │
+      ▼
+Softmax (416 Classes)
+      │
+      ▼
+Predicted Character
+      │
+      ▼
+JSON Character Mapping
       │
       ▼
 Devanagari Output
@@ -80,58 +108,73 @@ Devanagari Output
 
 ---
 
-## 📊 Results
+# 📊 Training Results
 
 | Metric | Value |
-|---------|-------|
+|--------|-------|
+| Model | MobileNetV2 |
+| Optimizer | Adam |
+| Epochs | 30 |
 | Validation Accuracy | **72.44%** |
 | Validation Loss | **1.0711** |
 
-The model performs well on dataset images and augmented samples. Tests on manually drawn characters revealed domain adaptation challenges, providing scope for future improvements.
+### Accuracy Curve
+
+![Training Accuracy](assets/training_accuracy.png)
+
+### Loss Curve
+
+![Training Loss](assets/training_loss.png)
 
 ---
 
-## 🛠️ Tech Stack
+# 🖥️ Application Demo
 
-- Python
-- TensorFlow / Keras
-- MobileNetV2
-- NumPy
-- OpenCV
-- Pillow
-- Streamlit
-- Matplotlib
+### Home Page
+
+![Home](assets/home_page.png)
 
 ---
 
-## 📁 Project Structure
+### Upload Image
+
+![Upload](assets/upload.png)
+
+---
+
+### Prediction Result
+
+![Prediction](assets/prediction.png)
+
+---
+
+# 📁 Project Structure
 
 ```
 Brahmi-Transliteration
+│
+├── assets/
+├── configs/
+├── fonts/
+├── mapping/
+├── model/
+├── scripts/
 │
 ├── app.py
 ├── README.md
 ├── requirements.txt
 ├── LICENSE
-│
-├── configs/
-├── fonts/
-├── mapping/
-├── model/
-├── notebooks/
-├── scripts/
-└── results/
+└── pyproject.toml
 ```
 
 ---
 
-## 🚀 Installation
+# ⚙️ Installation
 
 Clone the repository
 
 ```bash
 git clone https://github.com/krishnikbarman/Brahmi-Transliteration.git
-
 cd Brahmi-Transliteration
 ```
 
@@ -149,37 +192,75 @@ streamlit run app.py
 
 ---
 
-## 🖥️ Usage
+# 🚀 Usage
 
 1. Launch the Streamlit application.
 2. Upload a Brahmi character image.
-3. The model preprocesses the image.
-4. The trained MobileNetV2 predicts the character.
-5. The corresponding Devanagari character is displayed along with the confidence score.
+3. The image is automatically preprocessed.
+4. The trained MobileNetV2 model predicts the character.
+5. The corresponding Devanagari character and confidence score are displayed.
 
 ---
 
-## 🔮 Future Work
+# 🛠️ Technologies Used
 
+- Python
+- TensorFlow
+- Keras
+- MobileNetV2
+- OpenCV
+- NumPy
+- Pillow
+- Matplotlib
+- Streamlit
+- JSON
+
+---
+
+# 📌 Applications
+
+- Ancient Script Recognition
+- Historical Document Digitization
+- Cultural Heritage Preservation
+- Educational Learning Tools
+- OCR Research
+- Computer Vision Research
+
+---
+
+# 🔮 Future Improvements
+
+- Support for handwritten Brahmi characters
 - Sentence-level transliteration
-- Handwritten Brahmi recognition
-- Transformer-based architectures
+- Vision Transformer (ViT) based models
 - Domain adaptation for user-drawn inputs
-- Mobile deployment
-- Ancient inscription recognition
+- Mobile application deployment
+- Ancient inscription recognition from photographs
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Krishnik Barman**
 
-B.Tech Computer Science & Engineering
+B.Tech in Computer Science & Engineering
 
-Interested in Artificial Intelligence, Deep Learning, Computer Vision, and Ancient Script Digitization.
+**Areas of Interest**
+
+- Artificial Intelligence
+- Deep Learning
+- Computer Vision
+- OCR Systems
+- Ancient Script Digitization
 
 ---
 
-## ⭐ Acknowledgements
+# 📄 License
 
-This project was developed as part of research and experimentation in Deep Learning and Ancient Indian Script Recognition using Transfer Learning.
+This project is released under the MIT License.
+
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
