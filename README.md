@@ -1,149 +1,185 @@
-# Brahmi Character Recognition
+# 🏛️ Brahmi Script Recognition & Devanagari Transliteration
 
-A research-oriented Brahmi character recognition project structured for dataset preprocessing, model training, evaluation, and prediction. The repository is organized so that all paths are derived from a single project root and the raw dataset remains untouched.
+A Deep Learning based Computer Vision system for recognizing ancient Brahmi script characters and transliterating them into modern Devanagari using TensorFlow, MobileNetV2, and Streamlit.
 
-## Project Overview
+---
 
-This project is designed for OCR-style recognition of Brahmi character classes stored in class-specific folders under `dataset/`. The scaffold separates raw data, processed data, model artifacts, logs, experiment outputs, and reusable scripts so the research workflow stays reproducible.
+## 📖 Overview
 
-## Dataset Structure
+Brahmi is one of the oldest writing systems of the Indian subcontinent and the ancestor of many modern Indian scripts. Reading Brahmi inscriptions requires specialized knowledge, making digitization and preservation difficult.
 
-The dataset follows a folder-per-class layout:
+This project aims to automate the recognition of Brahmi script characters and transliterate them into their corresponding Devanagari characters using Deep Learning.
 
-```text
-Brahmi_Project/
-└── dataset/
-    ├── अ/
-    ├── अं/
-    ├── अः/
-    ├── आ/
-    ├── इ/
-    └── ...
+---
+
+## 🎯 Objectives
+
+- Recognize Brahmi characters from images.
+- Convert recognized characters into Devanagari.
+- Build a reusable OCR pipeline.
+- Provide a simple Streamlit interface for users.
+
+---
+
+## ✨ Features
+
+- 416 Brahmi character classes
+- Custom dataset preprocessing
+- Dataset balancing and augmentation
+- MobileNetV2 Transfer Learning
+- Automatic image preprocessing
+- Character prediction with confidence score
+- Streamlit web application
+- JSON-based character mapping
+
+---
+
+## 📂 Dataset
+
+| Property | Value |
+|----------|-------|
+| Classes | 416 |
+| Images | 6240 |
+| Images per class | 15 |
+| Image Size | 224 × 224 |
+
+### Dataset Preparation
+
+- Dataset Cleaning
+- Class Balancing
+- Image Augmentation
+- Image Preprocessing
+- Normalization
+
+---
+
+## 🧠 Model
+
+Transfer Learning using **MobileNetV2**
+
+Architecture:
+
+```
+Input Image
+      │
+      ▼
+Preprocessing
+      │
+      ▼
+MobileNetV2 Feature Extractor
+      │
+      ▼
+Dense Layers
+      │
+      ▼
+416 Character Classes
+      │
+      ▼
+Devanagari Output
 ```
 
-Each folder represents one character class. The project currently contains 429 character folders.
+---
 
-## Installation
+## 📊 Results
 
-1. Create and activate the project virtual environment:
+| Metric | Value |
+|---------|-------|
+| Validation Accuracy | **72.44%** |
+| Validation Loss | **1.0711** |
+
+The model performs well on dataset images and augmented samples. Tests on manually drawn characters revealed domain adaptation challenges, providing scope for future improvements.
+
+---
+
+## 🛠️ Tech Stack
+
+- Python
+- TensorFlow / Keras
+- MobileNetV2
+- NumPy
+- OpenCV
+- Pillow
+- Streamlit
+- Matplotlib
+
+---
+
+## 📁 Project Structure
+
+```
+Brahmi-Transliteration
+│
+├── app.py
+├── README.md
+├── requirements.txt
+├── LICENSE
+│
+├── configs/
+├── fonts/
+├── mapping/
+├── model/
+├── notebooks/
+├── scripts/
+└── results/
+```
+
+---
+
+## 🚀 Installation
+
+Clone the repository
 
 ```bash
-python -m venv .venv
+git clone https://github.com/krishnikbarman/Brahmi-Transliteration.git
+
+cd Brahmi-Transliteration
 ```
 
-2. Activate it on Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-3. Install the project dependencies:
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Run the environment check:
+Run the application
 
 ```bash
-python scripts/environment_check.py
+streamlit run app.py
 ```
 
-## Development Tooling
+---
 
-- Black is configured as the default formatter.
-- Ruff is configured for linting and import hygiene.
-- VS Code recommendations include Python, Pylance, Jupyter, GitHub Copilot, Black Formatter, Ruff, and Error Lens.
-- `pathlib` is part of the Python standard library, so it is used in code but not installed through `pip`.
+## 🖥️ Usage
 
-### Recommended VS Code Extensions
+1. Launch the Streamlit application.
+2. Upload a Brahmi character image.
+3. The model preprocesses the image.
+4. The trained MobileNetV2 predicts the character.
+5. The corresponding Devanagari character is displayed along with the confidence score.
 
-- `ms-python.python`
-- `ms-python.vscode-pylance`
-- `ms-toolsai.jupyter`
-- `GitHub.copilot`
-- `ms-python.black-formatter`
-- `charliermarsh.ruff`
-- `usernamehw.errorlens`
+---
 
-### VS Code Tasks and Debugging
+## 🔮 Future Work
 
-- Use `Terminal -> Run Task` for:
-    - `Environment Check`
-    - `Dataset Preprocessing`
-    - `Model Training`
-    - `Evaluation`
-- Use `Run and Debug` configurations for the same four workflows.
+- Sentence-level transliteration
+- Handwritten Brahmi recognition
+- Transformer-based architectures
+- Domain adaptation for user-drawn inputs
+- Mobile deployment
+- Ancient inscription recognition
 
-## Usage
+---
 
-All scripts resolve paths from `configs/config.py`, which automatically detects `PROJECT_ROOT`.
+## 👨‍💻 Author
 
-### Preprocessing
+**Krishnik Barman**
 
-```bash
-python scripts/preprocess_dataset.py
-```
+B.Tech Computer Science & Engineering
 
-Optional arguments:
+Interested in Artificial Intelligence, Deep Learning, Computer Vision, and Ancient Script Digitization.
 
-```bash
-python scripts/preprocess_dataset.py --source-dir dataset --output-dir processed_dataset
-```
+---
 
-### Training
+## ⭐ Acknowledgements
 
-```bash
-python scripts/train.py
-```
-
-Optional arguments:
-
-```bash
-python scripts/train.py --epochs 25 --batch-size 32 --data-dir processed_dataset
-```
-
-### Evaluation
-
-```bash
-python scripts/evaluate.py
-```
-
-### Prediction
-
-```bash
-python scripts/predict.py path/to/image.png
-```
-
-## Folder Structure
-
-```text
-Brahmi_Project/
-├── dataset/
-├── processed_dataset/
-├── test_output/
-├── scripts/
-│   ├── preprocess_dataset.py
-│   ├── train.py
-│   ├── evaluate.py
-│   ├── predict.py
-│   └── utils.py
-├── models/
-├── checkpoints/
-├── logs/
-├── results/
-├── notebooks/
-├── docs/
-├── configs/
-│   └── config.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-└── LICENSE
-```
-
-## Notes
-
-- `dataset/` is treated as read-only input.
-- `processed_dataset/`, `checkpoints/`, `logs/`, `results/`, and `test_output/` are intended for generated artifacts.
-- The scripts are starter entry points and should be extended with the final preprocessing policy, model architecture, and experiment logic.
+This project was developed as part of research and experimentation in Deep Learning and Ancient Indian Script Recognition using Transfer Learning.
